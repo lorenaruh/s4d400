@@ -1,5 +1,6 @@
 CLASS zcl_08_airplane DEFINITION
-  PUBLIC FINAL
+  PUBLIC
+  "FINAL weg, damit
   CREATE PUBLIC.
 
   PUBLIC SECTION.
@@ -21,6 +22,10 @@ CLASS zcl_08_airplane DEFINITION
                 empty_weight_in_tons TYPE i
       RAISING   zcx_abap_initial_parameter.
 
+      methods GET_TOTAL_WEIGHT_IN_TONS
+      importing empty_weight_in_tons type i
+      RETURNING value(TOTAL_WEIGHT_IN_TONS) type i.
+
     " Deklaration privat Attribute
     DATA id                   TYPE string READ-ONLY.
     DATA plane_type           TYPE string READ-ONLY.
@@ -29,10 +34,15 @@ CLASS zcl_08_airplane DEFINITION
     CLASS-DATA number_of_airplanes TYPE i READ-ONLY.
 
     " ---------------------------------------------------------------------
+     PROTECTED SECTION.
+  PRIVATE SECTION.
 ENDCLASS.
 
 
 CLASS zcl_08_airplane IMPLEMENTATION.
+**********************************************************************
+*
+**********************************************************************
   METHOD constructor.
     IF id IS INITIAL.
       RAISE EXCEPTION NEW zcx_abap_initial_parameter( parameter = 'id' ).
@@ -51,4 +61,9 @@ CLASS zcl_08_airplane IMPLEMENTATION.
     me->empty_weight_in_tons = empty_weight_in_tons.
     number_of_airplanes += 1.
   ENDMETHOD.
+**********************************************************************
+  METHOD get_total_weight_in_tons.
+      total_weight_in_tons = me->empty_weight_in_tons * '1.1'.
+  ENDMETHOD.
+
 ENDCLASS.

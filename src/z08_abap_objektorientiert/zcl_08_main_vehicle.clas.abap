@@ -1,43 +1,38 @@
 CLASS zcl_08_main_vehicle DEFINITION
-  PUBLIC
-  FINAL
-  CREATE PUBLIC .
+  PUBLIC FINAL
+  CREATE PUBLIC.
 
   PUBLIC SECTION.
-
-    INTERFACES if_oo_adt_classrun .
-  PROTECTED SECTION.
-  PRIVATE SECTION.
+    INTERFACES if_oo_adt_classrun.
 ENDCLASS.
 
 
-
 CLASS zcl_08_main_vehicle IMPLEMENTATION.
-
-
-
-
   METHOD if_oo_adt_classrun~main.
-
-
-    "Deklaration
-    DATA vehicle TYPE REF TO ZCL_08_vehicle.
+    " Deklaration
+    DATA vehicle  TYPE REF TO ZCL_08_vehicle.
     DATA vehicles TYPE TABLE OF REF TO ZCL_08_vehicle.
 
-    "Instanzierung
-    vehicle = NEW #( make = 'Porsche' model = '911' ). "Aufruf von Konstruktur
+    " Instanzierung
+    vehicle = NEW ZCL_08_car( make  = 'Porsche'
+                              model = '911'
+                              seats = 2 ). " Aufruf von Konstruktur/Upcast
 *    vehicle->set_make( 'Porsche' ).
 *    vehicle->set_model( '911' ).
     APPEND vehicle TO vehicles.
     out->write( |Gesamt Anzahl Autos: { vehicle->NUMBER_OF_vehicels }| ).
 
-    vehicle = NEW #( make = 'MAN' model = 'TGX' ).
+    vehicle = NEW ZCL_08_truck( make          = 'MAN'
+                                model         = 'TGX'
+                                cargo_in_tons = 20 ). "Upcast
 *    vehicle->set_make( 'MAN' ).
 *    vehicle->set_model( 'TGX' ).
     APPEND vehicle TO vehicles.
     out->write( |Gesamt Anzahl Autos: { vehicle->NUMBER_OF_vehicels }| ).
 
-    vehicle = NEW #( make = 'VW' model = 'Kombi' ).
+    vehicle = NEW ZCL_08_car( make  = 'VW'
+                              model = 'Kombi'
+                              seats = 9 ). "Upcast
 *    vehicle->set_make( 'VW' ).
 *    vehicle->set_model( 'Kombi' ).
     APPEND vehicle TO vehicles.
@@ -45,19 +40,19 @@ CLASS zcl_08_main_vehicle IMPLEMENTATION.
 
     out->write( | | ).
 
-    "Ausgabe
+    " Ausgabe
     LOOP AT vehicles INTO vehicle.
-    TRY.
-        vehicle->accelerate( 30 ).
-        vehicle->brake( 20 ).
-        vehicle->accelerate( 300 ).
-      CATCH zcx_08_valuetoohigh into data(x).
-        "handle exception
-        out->write( x->get_text( ) ).
-    ENDTRY.
-      out->write( |{ vehicle->make } { vehicle->model } { vehicle->speed_in_kmh }| ).
+      TRY.
+          vehicle->accelerate( 30 ).
+          vehicle->brake( 20 ).
+          vehicle->accelerate( 100 ).
+        CATCH zcx_08_valuetoohigh INTO DATA(x).
+          " handle exception
+          out->write( x->get_text( ) ).
+      ENDTRY.
+*      out->write( |{ vehicle->make } { vehicle->model } { vehicle->speed_in_kmh }| ).
+      out->write( vehicle->to_string( ) ). "(Dynamische) Polymorphie
+
     ENDLOOP.
-
-
   ENDMETHOD.
 ENDCLASS.
