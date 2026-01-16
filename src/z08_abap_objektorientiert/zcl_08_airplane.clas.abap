@@ -1,6 +1,7 @@
 CLASS zcl_08_airplane DEFINITION
   PUBLIC
   "FINAL weg, damit
+*  INHERITING FROM zcl_08_carrier
   CREATE PUBLIC.
 
   PUBLIC SECTION.
@@ -23,7 +24,7 @@ CLASS zcl_08_airplane DEFINITION
       RAISING   zcx_abap_initial_parameter.
 
       methods GET_TOTAL_WEIGHT_IN_TONS
-      importing empty_weight_in_tons type i
+*      importing empty_weight_in_tons type i
       RETURNING value(TOTAL_WEIGHT_IN_TONS) type i.
 
     " Deklaration privat Attribute

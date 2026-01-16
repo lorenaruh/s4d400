@@ -46,7 +46,7 @@ CLASS zcl_08_passenger_plane IMPLEMENTATION.
 
 **********************************************************************
   METHOD get_total_weight_in_tons.
-    total_weight_in_tons = super->get_total_weight_in_tons( empty_weight_in_tons = empty_weight_in_tons ).
+    total_weight_in_tons = super->get_total_weight_in_tons( ).
     total_weight_in_tons += number_of_seats * '0.08'.
   ENDMETHOD.
 ENDCLASS.

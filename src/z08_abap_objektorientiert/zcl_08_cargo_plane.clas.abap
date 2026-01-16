@@ -41,7 +41,7 @@ CLASS zcl_08_cargo_plane IMPLEMENTATION.
 **********************************************************************
 
   METHOD get_total_weight_in_tons.
-    total_weight_in_tons = super->get_total_weight_in_tons( empty_weight_in_tons = empty_weight_in_tons ).
+    total_weight_in_tons = super->get_total_weight_in_tons( ).
     total_weight_in_tons += cargo_in_tons.
   ENDMETHOD.
 **********************************************************************

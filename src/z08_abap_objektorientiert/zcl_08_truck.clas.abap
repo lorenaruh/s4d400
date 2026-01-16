@@ -6,6 +6,8 @@ CLASS zcl_08_truck DEFINITION
 
   PUBLIC SECTION.
   DATA cargo_in_tons type i READ-ONLY.
+  data is_transformed type c length 1 READ-ONLY.
+
     METHODS constructor
     importing
     make type string
@@ -13,6 +15,8 @@ CLASS zcl_08_truck DEFINITION
     cargo_in_tons type i.
 
     methods to_string REDEFINITION.
+
+    METHODS transform.
 
   PROTECTED SECTION.
   PRIVATE SECTION.
@@ -30,6 +34,15 @@ CLASS zcl_08_truck IMPLEMENTATION.
   METHOD to_string.
     string = super->to_string( ).
      string &&= |, Cargo: { cargo_in_tons }t|.
+  ENDMETHOD.
+
+  METHOD transform.
+    if is_transformed = 'X'. " if is_transformed abap_true
+    is_transformed = ''. "if is transformed abap_false
+    else.
+    is_transformed = 'X'.
+    endif.
+
   ENDMETHOD.
 
 ENDCLASS.

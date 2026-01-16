@@ -12,10 +12,18 @@ CLASS zcl_08_main_airplanes IMPLEMENTATION.
     " ---------------------------------------------------------------------
     " Deklaration
     DATA airplane  TYPE REF TO ZCL_08_airplane.
-    DATA airplanes TYPE TABLE OF REF TO ZCL_08_airplane.
+*    DATA airplanes TYPE TABLE OF REF TO ZCL_08_airplane.
+
 
     " ---------------------------------------------------------------------
     " Instanzierung
+    out->write( |Anzahl erzeugte Flugzeuge: { ZCL_08_airplane=>number_of_airplanes }| ).
+
+    DATA carrier TYPE REF TO ZCL_08_carrier.
+    carrier = NEW #( name = 'Lufthansa' ).
+
+
+
     " D-ABUK, Airbus A380-800, 277t
     TRY.
         airplane = NEW ZCL_08_passenger_plane( id                   = 'D-ABUK'
@@ -23,11 +31,12 @@ CLASS zcl_08_main_airplanes IMPLEMENTATION.
                                                empty_weight_in_tons = 277
                                                number_of_seats      = 250 ).
 
-        APPEND airplane TO airplanes.
+        carrier->add_airplane( airplane ).
+
+*        APPEND airplane TO airplanes.
       CATCH zcx_abap_initial_parameter INTO DATA(x).
         out->write( x->get_text( ) ).
     ENDTRY.
-    out->write( |Anzahl erzeugte Flugzeuge: { ZCL_08_airplane=>number_of_airplanes }| ).
 
     " ---------------------------------------------------------------------
     " D-AIND, Airbus A320-200, 42t
@@ -36,7 +45,7 @@ CLASS zcl_08_main_airplanes IMPLEMENTATION.
                                            plane_type           = 'Airbus A320-200'
                                            empty_weight_in_tons = 200
                                            cargo_in_tons        = 150 ).
-        APPEND airplane TO airplanes.
+        carrier->add_airplane( airplane ).
       CATCH zcx_abap_initial_parameter INTO DATA(y).
         out->write( y->get_text( ) ).
     ENDTRY.
@@ -51,7 +60,7 @@ CLASS zcl_08_main_airplanes IMPLEMENTATION.
                                                empty_weight_in_tons = 200
                                                number_of_seats      = 150 ).
 
-        APPEND airplane TO airplanes.
+        carrier->add_airplane( airplane ).
         out->write( |Anzahl erzeugte Flugzeuge: { ZCL_08_airplane=>number_of_airplanes }| ).
 
         out->write( | | ).
@@ -63,10 +72,14 @@ CLASS zcl_08_main_airplanes IMPLEMENTATION.
     " ---------------------------------------------------------------------
 
     " Ausgabe
-    LOOP AT airplanes INTO airplane.
+    LOOP AT carrier->airplanes INTO airplane.
       out->write(
-          |ID: { airplane->id }  Planetype: { airplane->plane_type } Empty weight: { airplane->empty_weight_in_tons }t Total weight: { airplane->get_total_weight_in_tons(
-                                                                                                                                           airplane->empty_weight_in_tons ) }t| ).
+          |ID: { airplane->id }  Planetype: { airplane->plane_type } Empty weight: { airplane->empty_weight_in_tons }t Total weight: { airplane->get_total_weight_in_tons( ) }t| ).
     ENDLOOP.
+
+
+    out->write( carrier ).
+    out->write( carrier->get_biggest_cargo_plane( ) ).
+
   ENDMETHOD.
 ENDCLASS.

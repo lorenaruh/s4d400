@@ -12,6 +12,7 @@ CLASS zcl_08_main_vehicle IMPLEMENTATION.
     " Deklaration
     DATA vehicle  TYPE REF TO ZCL_08_vehicle.
     DATA vehicles TYPE TABLE OF REF TO ZCL_08_vehicle.
+    DATA truck    TYPE REF TO Zcl_08_truck. " Variable typ Truck, damit Downcast möglich
 
     " Instanzierung
     vehicle = NEW ZCL_08_car( make  = 'Porsche'
@@ -24,7 +25,7 @@ CLASS zcl_08_main_vehicle IMPLEMENTATION.
 
     vehicle = NEW ZCL_08_truck( make          = 'MAN'
                                 model         = 'TGX'
-                                cargo_in_tons = 20 ). "Upcast
+                                cargo_in_tons = 20 ). " Upcast
 *    vehicle->set_make( 'MAN' ).
 *    vehicle->set_model( 'TGX' ).
     APPEND vehicle TO vehicles.
@@ -32,7 +33,7 @@ CLASS zcl_08_main_vehicle IMPLEMENTATION.
 
     vehicle = NEW ZCL_08_car( make  = 'VW'
                               model = 'Kombi'
-                              seats = 9 ). "Upcast
+                              seats = 9 ). " Upcast
 *    vehicle->set_make( 'VW' ).
 *    vehicle->set_model( 'Kombi' ).
     APPEND vehicle TO vehicles.
@@ -50,8 +51,14 @@ CLASS zcl_08_main_vehicle IMPLEMENTATION.
           " handle exception
           out->write( x->get_text( ) ).
       ENDTRY.
+      IF vehicle IS INSTANCE OF ZCL_08_truck.
+        " truck = vehicle. geht nicht so einfach, weil vehicle kann auch car sein
+        truck = CAST #( vehicle ). " Downcast
+        truck->transform( ).
+        out->write( |{ COND #( WHEN truck->is_transformed = 'X' THEN 'LKW ist Autobot' ELSE 'LKW ist LKW' ) }| ).
+      ENDIF.
 *      out->write( |{ vehicle->make } { vehicle->model } { vehicle->speed_in_kmh }| ).
-      out->write( vehicle->to_string( ) ). "(Dynamische) Polymorphie
+      out->write( vehicle->to_string( ) ). "(Dynamische) Polymorphie in Java gibt's au Statische siehe Sysoutln (10 versch.)
 
     ENDLOOP.
   ENDMETHOD.
