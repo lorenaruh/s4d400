@@ -3,9 +3,9 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <VSEOCLASS>
-    <CLSNAME>ZCL_08_CARRIER</CLSNAME>
-    <LANGU>E</LANGU>
-    <DESCRIPT>Carrier</DESCRIPT>
+    <CLSNAME>ZCL_08_RENTAL</CLSNAME>
+    <LANGU>D</LANGU>
+    <DESCRIPT>Rental</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>

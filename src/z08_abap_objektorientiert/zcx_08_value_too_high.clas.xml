@@ -3,9 +3,10 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <VSEOCLASS>
-    <CLSNAME>ZCL_08_CARRIER</CLSNAME>
+    <CLSNAME>ZCX_08_VALUE_TOO_HIGH</CLSNAME>
     <LANGU>E</LANGU>
-    <DESCRIPT>Carrier</DESCRIPT>
+    <DESCRIPT>Value too high</DESCRIPT>
+    <CATEGORY>40</CATEGORY>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>

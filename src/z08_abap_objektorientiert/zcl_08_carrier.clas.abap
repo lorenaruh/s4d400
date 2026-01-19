@@ -1,32 +1,26 @@
 CLASS zcl_08_carrier DEFINITION
-  PUBLIC
-*  FINAL
-  CREATE PUBLIC .
+  PUBLIC FINAL
+  CREATE PUBLIC.
 
   PUBLIC SECTION.
 
-    DATA name TYPE string READ-ONLY.
-    DATA airplanes TYPE Z08_airplanes READ-ONLY.
+  INTERFACES ZIF_08_partner.
+
+    DATA name      TYPE string        READ-ONLY.
+    DATA airplanes TYPE z08_airplanes READ-ONLY.
 
     METHODS constructor
-      IMPORTING name TYPE string.
-
+      IMPORTING !name TYPE string.
 
     METHODS add_airplane
-      IMPORTING airplane type REF TO ZCL_08_airplane.
+      IMPORTING airplane TYPE REF TO ZCL_08_airplane.
 
     METHODS get_biggest_cargo_plane
       RETURNING VALUE(biggest_cargo_plane) TYPE REF TO ZCL_08_cargo_plane.
-
-
-  PROTECTED SECTION.
-  PRIVATE SECTION.
 ENDCLASS.
 
 
-
 CLASS zcl_08_carrier IMPLEMENTATION.
-
   METHOD constructor.
     me->name = name.
   ENDMETHOD.
@@ -35,22 +29,19 @@ CLASS zcl_08_carrier IMPLEMENTATION.
     APPEND airplane TO airplanes.
   ENDMETHOD.
 
-
   METHOD get_biggest_cargo_plane.
-    "Deklaration
-    data biggest_cargo TYPE i VALUE 0.
-*    data airplane type ref to ZCL_08_airplane.
-*    data cargo_plane type ref to ZCL_08_cargo_plane.
+    DATA max_cargo_in_tons TYPE i VALUE 0.
 
-    "Schleife
-    LOOP AT airplanes INTO data(airplane).
-      IF airplane IS INSTANCE OF ZCL_08_cargo_plane and airplane->get_total_weight_in_tons( ) > biggest_cargo.
-*        IF cargo_plane->get_total_weight_in_tons( ) > airplane->get_total_weight_in_tons(  ).
-          biggest_cargo = biggest_cargo_plane->get_total_weight_in_tons( ).
-          biggest_cargo_plane = cast #( airplane ).
-*        ENDIF.
+    LOOP AT airplanes INTO DATA(airplane).
+      IF airplane IS INSTANCE OF ZCL_08_cargo_plane AND airplane->get_total_weight_in_tons( ) > max_cargo_in_tons.
+        biggest_cargo_plane = CAST #( airplane ).
+        max_cargo_in_tons = biggest_cargo_plane->get_total_weight_in_tons( ).
+
       ENDIF.
-      ENDLOOP.
-        ENDMETHOD.
+    ENDLOOP.
+  ENDMETHOD.
+  METHOD zif_08_partner~to_string.
+    string = 'Ich bin eine Fluggesellschaft'.
+  ENDMETHOD.
 
 ENDCLASS.
