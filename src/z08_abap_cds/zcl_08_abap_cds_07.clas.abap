@@ -18,7 +18,7 @@ CLASS zcl_08_abap_cds_07 IMPLEMENTATION.
   METHOD if_oo_adt_classrun~main.
 
   select from Z08_CustomerWithTravels
-  fields CustomerId, FirstName, LastName, Title, Street, PostalCode, City, \_Travels-begin_date
+  fields CustomerId, FirstName, LastName, \_Travels-description, \_Travels-begin_date
   into table @Data(customer).
 
   out->write( customer ).
