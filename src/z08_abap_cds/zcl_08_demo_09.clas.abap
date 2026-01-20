@@ -17,7 +17,7 @@ CLASS zcl_08_demo_09 IMPLEMENTATION.
 
   METHOD if_oo_adt_classrun~main.
 
-  select from Z00_Demo07( p_carrierid = 'LH' ) ", p_deadline = @sy-datum ) kann man dazu machen, muss aber nicht
+  select from Z08_Demo07( p_carrierid = 'LH' ) ", p_deadline = @sy-datum ) kann man dazu machen, muss aber nicht
   fields *
 *  where CarrierId = 'LH'
   into table @Data(flights).
