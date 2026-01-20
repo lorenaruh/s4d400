@@ -7,7 +7,12 @@
 @Metadata.ignorePropagatedAnnotations: true
 
 define view entity Z08_CustomerKPIs
+  with parameters
+  
+  P_City : /dmo/city
+  
   as select from Z08_TravelWithCustomer as twc
+  
 
 {
   key twc.CustomerId,
@@ -35,7 +40,7 @@ define view entity Z08_CustomerKPIs
       @EndUserText.quickInfo: 'NumberOfDifferentAgencys'
       count(distinct twc.AgencyId)                       as NumberOfDifferentAgencys
 }
-
+where twc.City = $parameters.P_City
 group by CustomerId,
          CustomerName,
          Street,
