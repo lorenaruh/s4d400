@@ -13,7 +13,7 @@ define view entity Z08_Demo3
       /* Literals and Casts */
       
       'Hello World'                                                  as TextLiteral,
-      42                                                             as NumberLitaral,
+      42                                                             as NumberLiteral,
       0.1                                                            as Fltp,
       f.seats_max - f.seats_occupied                                 as FreeSeats,
       
