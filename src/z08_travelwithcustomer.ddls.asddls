@@ -9,11 +9,10 @@ define view entity Z08_TravelWithCustomer
   as select from Z08_Travel   as t
 
     inner join   Z08_Customer as c on t.CustomerId = c.CustomerId
-  //    left outer join dd07t as statustext
-  //        on statustext.domname    = 'Z08_STATUS'        // Domänenname von Status
-  //       and statustext.as4local   = 'A'                 // Aktive Version
-  //       and statustext.     = t.Status            // Status-Feld aus Tabelle
-  //       and statustext.ddlanguage = $session.system_language // Logonsprache
+    inner join   DDCDS_CUSTOMER_DOMAIN_VALUE_T(
+                   p_domain_name : '/DMO/STATUS') as s
+      on  s.value_low = t.Status
+      and s.language  = $session.system_language
 
 {
   key t.TravelId,
@@ -25,42 +24,55 @@ define view entity Z08_TravelWithCustomer
       @EndUserText.quickInfo: 'Duration'
       dats_days_between(t.BeginDate, t.EndDate) + 1                   as Duration,
 
+      @EndUserText.label: 'BookingFee in Euros'
+      @EndUserText.quickInfo: 'BookingFee in Euros'
       @Semantics.amount.currencyCode: 'CurrencyCode'
       currency_conversion(amount             => t.BookingFee,
                           source_currency    => t.CurrencyCode,
                           target_currency    => cast('EUR' as abap.cuky),
                           exchange_rate_date => $session.system_date) as BookingFeeInEuros,
 
+      @EndUserText.label: 'Total Price in Euros'
+      @EndUserText.quickInfo: 'Total Price in Euros'
       @Semantics.amount.currencyCode: 'CurrencyCode'
       currency_conversion(amount             => t.TotalPrice,
                           source_currency    => t.CurrencyCode,
                           target_currency    => cast('EUR' as abap.cuky),
                           exchange_rate_date => $session.system_date) as TotalPriceInEuros,
 
-      cast('EUR' as abap.cuky)                                        as CurrencyCode,
+      
+      cast('EUR' as /dmo/currency_code)                                        as CurrencyCode,
 
       t.Description,
 
 
       /*
+      Hardcodiert
       'B' Booked
       'N' New
       'P' Planned
       'X' Cancelled
       */
-      case when t.Status = 'B' then 'Booked'
-      when t.Status = 'N' then 'New'
-       when t.Status = 'P' then 'Planned'
-        when t.Status = 'X' then 'Cancelled'
-      else 'No Status available'
-      end                                                             as StatusText,
+      //Hardcodiert
+//      case when t.Status = 'B' then 'Booked'
+//      when t.Status = 'N' then 'New'
+//       when t.Status = 'P' then 'Planned'
+//        when t.Status = 'X' then 'Cancelled'
+//      else 'No Status available'
+//      end  
+      
+      
+      @EndUserText.label: 'Status Text'
+      @EndUserText.quickInfo: 'Status Text'
+      s.text                                                           as StatusText,
 
-      //      t.Status.ddtext as StatusText,
       c.CustomerId,
 
       //      c.FirstName,
       //      c.LastName,
       //      c.Title,
+            @EndUserText.label: 'Customer Name'
+      @EndUserText.quickInfo: 'Customer Name'
       case when c.Title is initial then concat_with_space(c.FirstName, c.LastName, 1)
       else concat_with_space(c.Title, concat_with_space(c.FirstName, c.LastName, 1), 1)
       end                                                             as CustomerName,
