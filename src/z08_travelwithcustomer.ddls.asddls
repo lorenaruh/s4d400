@@ -16,7 +16,7 @@ define view entity Z08_TravelWithCustomer
 
 {
   key t.TravelId,
-
+      t.AgencyId,
       t.BeginDate,
       t.EndDate,
 
