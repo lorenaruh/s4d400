@@ -3,11 +3,11 @@
 {
 "FROM":
 [
-"ZI_08_MOVIE"
+"ZI_08_RATING"
 ],
 "ASSOCIATED":
 [
-"ZR_08_RATINGTP"
+"ZR_08_MOVIETP"
 ],
 "BASE":
 [],

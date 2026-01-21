@@ -1,4 +1,5 @@
 @EndUserText.label: 'Movie'
 define service ZUI_08_MOVIE {
-  expose ZC_08_MovieTP as Movie;
+  expose ZC_08_MovieTP  as Movie;
+  expose ZC_08_RatingTP as Rating;
 }

@@ -8,11 +8,12 @@
 
 @Search.searchable: true
 
-define view entity ZC_08_MovieTP
-  as select from ZI_08_Movie
+define root view entity ZC_08_MovieTP
+  as projection on ZR_08_MovieTP
 
 {
   key MovieUuid,
+
 
       @Search.defaultSearchElement: true
       @Search.fuzzinessThreshold: 0.7
@@ -25,5 +26,8 @@ define view entity ZC_08_MovieTP
       CreatedAt,
       CreatedBy,
       LastChangedAt,
-      LastChangedBy
+      LastChangedBy,
+
+      /* Associations */
+      _Ratings : redirected to composition child ZC_08_RatingTP
 }
