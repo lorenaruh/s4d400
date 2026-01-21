@@ -8,7 +8,8 @@ annotate entity ZC_08_TravelTP
 {
   /* Facets */
   @UI.facet: [ { position: 10, type: #FIELDGROUP_REFERENCE, targetQualifier: 'Details', label: 'Travel Details'      },
-               { position: 20, type: #FIELDGROUP_REFERENCE, targetQualifier: 'Admin',   label: 'Administrative Data' } ]
+               { position: 20, type: #FIELDGROUP_REFERENCE, targetQualifier: 'Admin',   label: 'Administrative Data' },
+               { position: 30, type: #LINEITEM_REFERENCE , targetElement: '_Bookings',   label: 'Bookings' }  ]
 
   /* Flieds */
   @UI.fieldGroup: [ { position: 10, qualifier: 'Details' } ]

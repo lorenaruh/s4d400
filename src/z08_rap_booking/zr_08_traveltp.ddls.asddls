@@ -4,8 +4,10 @@
 
 @EndUserText.label: 'Travel'
 
-define view entity ZR_08_TravelTP
+define root view entity ZR_08_TravelTP
   as select from ZI_08_Travel
+  
+  composition [0..*] of ZR_08_BOOKINGTP as _Bookings
 
 {
   key TravelId,
@@ -22,5 +24,8 @@ define view entity ZR_08_TravelTP
       CreatedBy,
       CreatedAt,
       LastChangedBy,
-      LastChangedAt
+      LastChangedAt,
+      
+      /* Associations */
+      _Bookings
 }
