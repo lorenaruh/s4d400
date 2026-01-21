@@ -1,6 +1,11 @@
 @Metadata.layer: #CUSTOMER
 
-@UI.headerInfo: { typeNamePlural: 'Movies', title.value: 'Title', description.value: 'PublishingYear', imageUrl: 'ImageUrl' }
+@UI.headerInfo: {
+typeNamePlural: 'Movies',
+typeName: 'Movie',
+title.value: 'Title',
+description.value: 'PublishingYear',
+imageUrl: 'ImageUrl' }
 
 annotate entity ZC_08_MovieTP
   with
