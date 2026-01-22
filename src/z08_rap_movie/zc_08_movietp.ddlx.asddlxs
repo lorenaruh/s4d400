@@ -49,6 +49,7 @@ annotate entity ZC_08_MovieTP
                       criticalityRepresentation: #WITHOUT_ICON } ]
   @UI.lineItem: [ { position: 50, criticality: 'AverageRatingCriticality', criticalityRepresentation: #WITHOUT_ICON } ]
   @UI.selectionField: [ { position: 40 } ]
+  @UI.dataPoint: { criticality: 'AverageRating' } //macht 'Pin' im/neben Header
   AverageRating;
 
   @UI.lineItem: [ { hidden: true } ]
