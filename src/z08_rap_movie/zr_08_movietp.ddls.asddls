@@ -4,10 +4,12 @@
 
 @EndUserText.label: 'Movies'
 
+/*+[hideWarning] { "IDS" : [ "CARDINALITY_CHECK" ]  } */
 define root view entity ZR_08_MovieTP
   as select from ZI_08_Movie
 
   association [0..1] to ZI_08_AverageRating as _AverageRating on $projection.MovieUuid = _AverageRating.MovieUuid
+  association [0..1] to ZI_08_GenreText     as _GenreText     on $projection.Genre = _GenreText.Genre
   composition [0..*] of ZR_08_RatingTP      as _Ratings
 
 {
@@ -30,5 +32,6 @@ define root view entity ZR_08_MovieTP
 
       /* Associations */
       _Ratings,
-      _AverageRating
+      _AverageRating,
+      _GenreText
 }
