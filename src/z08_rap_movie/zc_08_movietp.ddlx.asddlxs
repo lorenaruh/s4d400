@@ -6,18 +6,18 @@
                   description.value: 'PublishingYear',
                   imageUrl: 'ImageUrl' }
 
-@UI.lineItem: [ { criticality: 'AverageRatingCriticality' } ]
+@UI.lineItem: [ { criticality: 'AverageRatingCriticality' } ] //Zeilenselektor
 
-//@UI.presentationVariant: [ { sortOrder: [ { by: 'AverageRating', direction: #DESC } ]
+@UI.presentationVariant: [{ sortOrder: [{ by: 'AverageRating', direction: #DESC }] }]
 
 annotate entity ZC_08_MovieTP
   with
 
 {
   /* Facets */
-  @UI.facet: [ { position: 10, type: #FIELDGROUP_REFERENCE, targetQualifier: 'Details', label: 'Movie Details'       },
-               { position: 30, type: #LINEITEM_REFERENCE , targetElement: '_Ratings',   label: 'Ratings' },
-               { position: 20, type: #FIELDGROUP_REFERENCE, targetQualifier: 'Admin',   label: 'Administrative Data' } ]
+  @UI.facet: [ { position: 10, type: #FIELDGROUP_REFERENCE, targetQualifier: 'Details', label: 'Movie Details' },
+               { position: 30, type: #LINEITEM_REFERENCE, targetElement: '_Ratings', label: 'Ratings' },
+               { position: 20, type: #FIELDGROUP_REFERENCE, targetQualifier: 'Admin', label: 'Administrative Data' } ]
 
 
   /* Flieds */
@@ -43,8 +43,12 @@ annotate entity ZC_08_MovieTP
   @UI.selectionField: [ { position: 30 } ]
   RuntimeInMin;
 
-  @UI.lineItem: [{ position: 50, value: 'AverageRating', criticality: 'AverageRatingCriticality', label: 'Average Rating', criticalityRepresentation: #WITHOUT_ICON }]
-  @UI.fieldGroup: [ { position: 50, qualifier: 'Details' } ]
+  @UI.fieldGroup: [ { position: 50,
+                      qualifier: 'Details',
+                      criticality: 'AverageRatingCriticality',
+                      criticalityRepresentation: #WITHOUT_ICON } ]
+  @UI.lineItem: [ { position: 50, criticality: 'AverageRatingCriticality', criticalityRepresentation: #WITHOUT_ICON } ]
+  @UI.selectionField: [ { position: 40 } ]
   AverageRating;
 
   @UI.lineItem: [ { hidden: true } ]
