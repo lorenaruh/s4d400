@@ -19,8 +19,11 @@ define root view entity ZC_08_MovieTP
       @Search.defaultSearchElement: true
       @Search.fuzzinessThreshold: 0.7
       Title,
+
       @ObjectModel.text.element: [ 'GenreText' ]
+      @Consumption.valueHelpDefinition: [{ entity : { name : 'ZI_08_GenreText', element: 'GenreText' } }]
       Genre,
+
       PublishingYear,
       RuntimeInMin,
       ImageUrl,
@@ -28,7 +31,7 @@ define root view entity ZC_08_MovieTP
       CreatedBy,
       LastChangedAt,
       LastChangedBy,
-      
+
       /* Transistent Data */
       AverageRating,
       AverageRatingCriticality,
