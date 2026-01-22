@@ -14,7 +14,9 @@ define view entity ZR_08_RatingTP
       UserName,
       Rating,
       RatingDate,
-
+      
+      
+     
       /* Associations */
       _Movie // Make association public
 }

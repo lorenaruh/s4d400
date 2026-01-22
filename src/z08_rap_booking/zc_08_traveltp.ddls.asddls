@@ -32,6 +32,10 @@ define root view entity ZC_08_TravelTP
       LastChangedBy,
       LastChangedAt,
       
+      /* Transitent Data */
+      StatusCriticality,
+      CustomerName,
+      
       /* Association */
       _Bookings : redirected to composition child ZC_08_BOOKINGTP
       

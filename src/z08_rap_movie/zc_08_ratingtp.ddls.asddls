@@ -3,6 +3,7 @@
 @EndUserText.label: 'Rating'
 
 @Metadata.allowExtensions: true
+
 define view entity ZC_08_RatingTP
   as projection on ZR_08_RatingTP
 

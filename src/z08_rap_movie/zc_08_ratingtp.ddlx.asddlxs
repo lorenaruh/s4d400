@@ -2,7 +2,7 @@
 
 @UI.headerInfo: { typeNamePlural: 'Raitings',
                   typeName: 'Raiting',
-                  title.value: 'UserName',
+                  title.value: 'Rating',
                   description.value: 'UserName' }
 
 annotate entity ZC_08_RatingTP

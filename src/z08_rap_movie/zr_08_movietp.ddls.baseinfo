@@ -3,6 +3,7 @@
 {
 "FROM":
 [
+"ZI_08_AVERAGERATING",
 "ZI_08_MOVIE"
 ],
 "ASSOCIATED":

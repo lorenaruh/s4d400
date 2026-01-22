@@ -27,6 +27,10 @@ define root view entity ZC_08_MovieTP
       CreatedBy,
       LastChangedAt,
       LastChangedBy,
+      
+      /* Transistent Data */
+      AverageRating,
+      AverageRatingCriticality,
 
       /* Associations */
       _Ratings : redirected to composition child ZC_08_RatingTP

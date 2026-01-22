@@ -1,15 +1,19 @@
 @Metadata.layer: #CUSTOMER
 
 @UI.headerInfo: { typeNamePlural: 'Travels', title.value: 'TravelId', description.value: 'Description' }
+@UI.lineItem: [ { criticality: 'StatusCriticality' } ]
+
+@UI.presentationVariant: [ { sortOrder: [ { by: 'BeginDate', direction: #DESC },
+                                          { by: 'EndDate',   direction: #DESC } ] } ]
 
 annotate entity ZC_08_TravelTP
   with
 
 {
   /* Facets */
-  @UI.facet: [ { position: 10, type: #FIELDGROUP_REFERENCE, targetQualifier: 'Details', label: 'Travel Details'      },
-               { position: 20, type: #FIELDGROUP_REFERENCE, targetQualifier: 'Admin',   label: 'Administrative Data' },
-               { position: 30, type: #LINEITEM_REFERENCE , targetElement: '_Bookings',   label: 'Bookings' }  ]
+  @UI.facet: [ { position: 10, type: #FIELDGROUP_REFERENCE, targetQualifier: 'Details', label: 'Travel Details' },
+               { position: 20, type: #FIELDGROUP_REFERENCE, targetQualifier: 'Admin', label: 'Administrative Data' },
+               { position: 30, type: #LINEITEM_REFERENCE, targetElement: '_Bookings', label: 'Bookings' } ]
 
   /* Flieds */
   @UI.fieldGroup: [ { position: 10, qualifier: 'Details' } ]
@@ -50,8 +54,11 @@ annotate entity ZC_08_TravelTP
   @UI.lineItem: [ { position: 70 } ]
   Description;
 
-  @UI.fieldGroup: [ { position: 90, qualifier: 'Details' } ]
-  @UI.lineItem: [ { position: 80 } ]
+  @UI.fieldGroup: [ { position: 90,
+                      qualifier: 'Details',
+                      criticality: 'StatusCriticality',
+                      criticalityRepresentation: #WITHOUT_ICON } ]
+  @UI.lineItem: [ { position: 80, criticality: 'StatusCriticality', criticalityRepresentation: #WITHOUT_ICON } ]
   @UI.selectionField: [ { position: 60 } ]
   Status;
 
@@ -67,4 +74,7 @@ annotate entity ZC_08_TravelTP
 
   @UI.fieldGroup: [ { position: 40, qualifier: 'Admin' } ]
   LastChangedAt;
+  
+  @UI.hidden: true
+  StatusCriticality;
 }

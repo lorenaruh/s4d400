@@ -6,6 +6,10 @@
                   description.value: 'PublishingYear',
                   imageUrl: 'ImageUrl' }
 
+@UI.lineItem: [ { criticality: 'AverageRatingCriticality' } ]
+
+//@UI.presentationVariant: [ { sortOrder: [ { by: 'AverageRating', direction: #DESC } ]
+
 annotate entity ZC_08_MovieTP
   with
 
@@ -38,6 +42,13 @@ annotate entity ZC_08_MovieTP
   @UI.lineItem: [ { position: 40 } ]
   @UI.selectionField: [ { position: 30 } ]
   RuntimeInMin;
+
+  @UI.lineItem: [{ position: 50, value: 'AverageRating', criticality: 'AverageRatingCriticality', label: 'Average Rating', criticalityRepresentation: #WITHOUT_ICON }]
+  @UI.fieldGroup: [ { position: 50, qualifier: 'Details' } ]
+  AverageRating;
+
+  @UI.lineItem: [ { hidden: true } ]
+  AverageRatingCriticality;
 
   @UI.fieldGroup: [ { position: 50, qualifier: 'Details' } ]
   @UI.lineItem: [ { position: 5 } ]
