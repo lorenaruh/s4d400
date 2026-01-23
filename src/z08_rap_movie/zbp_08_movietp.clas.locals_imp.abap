@@ -1,3 +1,51 @@
+CLASS lhc_zr_08_ratingtp DEFINITION INHERITING FROM cl_abap_behavior_handler.
+
+  PRIVATE SECTION.
+*
+    METHODS DetermineRatingDate FOR DETERMINE ON SAVE
+      IMPORTING keys FOR ZR_08_RatingTP~DetermineRatingDate.
+
+    METHODS DetermineUserName FOR DETERMINE ON SAVE
+      IMPORTING keys FOR ZR_08_RatingTP~DetermineUserName.
+
+ENDCLASS.
+
+CLASS lhc_zr_08_ratingtp IMPLEMENTATION.
+
+  METHOD DetermineRatingDate.
+  DATA ratings TYPE TABLE FOR UPDATE ZR_08_RatingTP.
+
+    LOOP AT keys INTO DATA(key).
+
+      APPEND VALUE #( %tky       = key-%tky
+                      RatingDate = sy-datum ) TO ratings.
+    ENDLOOP.
+
+    MODIFY ENTITIES OF ZR_08_MovieTP IN LOCAL MODE
+           ENTITY Rating
+           UPDATE
+           FIELDS ( RatingDate )
+           WITH ratings.
+  ENDMETHOD.
+
+
+  METHOD DetermineUserName.
+  DATA ratings TYPE TABLE FOR UPDATE ZR_08_RatingTP.
+    LOOP AT keys INTO DATA(key).
+      APPEND VALUE #( %tky     = key-%tky
+                      UserName = sy-uname )
+             TO ratings.
+    ENDLOOP.
+
+    MODIFY ENTITIES OF ZR_08_MovieTP IN LOCAL MODE
+           ENTITY Rating
+           UPDATE
+           FIELDS ( UserName )
+           WITH ratings.
+  ENDMETHOD.
+
+ENDCLASS.
+
 CLASS lhc_Movie DEFINITION INHERITING FROM cl_abap_behavior_handler.
   PRIVATE SECTION.
     METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
@@ -7,11 +55,6 @@ CLASS lhc_Movie DEFINITION INHERITING FROM cl_abap_behavior_handler.
       IMPORTING REQUEST requested_authorizations FOR Movie RESULT result.
     METHODS ValidateGenre FOR VALIDATE ON SAVE
       IMPORTING keys FOR Movie~ValidateGenre.
-*    METHODS DetermineRatingDate FOR DETERMINE ON SAVE
-*      IMPORTING keys FOR Rating~DetermineRatingDate.
-*
-*    METHODS DetermineUserName FOR DETERMINE ON SAVE
-*      IMPORTING keys FOR Rating~DetermineUserName.
 
 ENDCLASS.
 
@@ -57,36 +100,4 @@ CLASS lhc_Movie IMPLEMENTATION.
 
     ENDLOOP.
   ENDMETHOD.
-
-*  METHOD DetermineRatingDate.
-*    DATA ratings TYPE TABLE FOR UPDATE ZR_08_RatingTP.
-*
-*    LOOP AT keys INTO DATA(key).
-*
-*      APPEND VALUE #( %tky       = key-%tky
-*                      RatingDate = sy-datum ) TO ratings.
-*    ENDLOOP.
-*
-*    MODIFY ENTITIES OF ZR_08_MovieTP IN LOCAL MODE
-*           ENTITY Raiting
-*           UPDATE
-*           FIELDS ( RatingDate )
-*           WITH ratings.
-*  ENDMETHOD.
-*
-*  METHOD DetermineUserName.
-*    DATA ratings TYPE TABLE FOR UPDATE ZR_08_RatingTP.
-*
-*    LOOP AT key INTO DATA(key).
-*      APPEND VALUE #( %tky     = key-%tky
-*                      UserName = sy-uname )
-*             TO ratings.
-*    ENDLOOP.
-*
-*    MODIFY ENTITIES OF ZR_08_MovieTP IN LOCAL MODE
-*           ENTITY Raiting
-*           UPDATE
-*           FIELDS ( UserName )
-*           WITH ratings.
-*  ENDMETHOD.
 ENDCLASS.

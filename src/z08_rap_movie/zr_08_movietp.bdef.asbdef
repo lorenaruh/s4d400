@@ -35,7 +35,7 @@ authorization master ( instance )
 
 }
 
-define behavior for ZR_08_RatingTP //alias <alias_name>
+define behavior for ZR_08_RatingTP alias Rating
 persistent table zabap_rating_a
 lock dependent by _Movie
 authorization dependent by _Movie
@@ -48,9 +48,9 @@ authorization dependent by _Movie
   field ( readonly ) MovieUuid;
   field (readonly) RatingDate, UserName;
 
-  determination DetermineRatingDate on save {create; }
+  determination DetermineRatingDate on save { create; }
 
-  determination DetermineUserName on save {create; }
+  determination DetermineUserName on save { create; }
 
 
   mapping for zabap_rating_a corresponding
