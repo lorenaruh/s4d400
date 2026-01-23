@@ -12,7 +12,7 @@ define view entity ZI_08_AverageRating
 
       @EndUserText.label: 'AverageRating'
       @EndUserText.quickInfo: 'AverageRating'
-      avg(rating as abap.dec(4,1)) as AverageRating,
+      avg(rating as abap.dec(14,1)) as AverageRating,
 
 
       case
