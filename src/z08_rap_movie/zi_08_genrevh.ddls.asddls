@@ -9,10 +9,23 @@ define view entity ZI_08_GenreVH
                    p_domain_name : 'ZABAP_GENRE')
 
 {
+      @UI.hidden: true
   key domain_name,
+
+      @UI.hidden: true
   key value_position,
+
+      @UI.hidden: true
   key language,
 
-      value_low,
-      text
+      @EndUserText.label: 'Genre'
+      @EndUserText.quickInfo: 'Genre'
+
+      value_low       as Genre,
+
+      @EndUserText.label: 'GenreText'
+      @EndUserText.quickInfo: 'GenreText'
+      text            as GenreText
 }
+
+where language = $session.system_language

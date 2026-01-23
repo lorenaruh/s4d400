@@ -20,8 +20,8 @@ define root view entity ZC_08_MovieTP
       @Search.fuzzinessThreshold: 0.7
       Title,
 
+      @Consumption.valueHelpDefinition: [ { entity: { name: 'ZI_08_GenreVH', element: 'Genre' } } ]
       @ObjectModel.text.element: [ 'GenreText' ]
-      @Consumption.valueHelpDefinition: [{ entity : { name : 'ZI_08_GenreText', element: 'GenreText' } }]
       Genre,
 
       PublishingYear,
