@@ -12,6 +12,11 @@ authorization master ( instance )
   delete;
   association _Ratings { create; }
   field ( readonly, numbering : managed ) MovieUuid;
+  field (mandatory : create) Title, Genre, PublishingYear, RuntimeInMin;
+  field (mandatory : update) Title, Genre, PublishingYear, RuntimeInMin;
+
+  validation ValidateGenre on save { create; }
+
 
   mapping for zabap_movie_a corresponding
     {
